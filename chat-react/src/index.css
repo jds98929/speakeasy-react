@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#comment-icon:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+#heart-icon:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+#comments {
+  padding-top: 2px;
+  color: gray
+}
+
+#likes {
+  padding-top: 2px;
+  color: red
+}
+
+
+.date {
+  font-size: small;
+}
+
+.name {
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+.after-name {
+  color: gray;
+}
+
+.link {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.innerCard {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.wrapperCard {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.even-comment {
+  background-color: lightgray;
+  padding: 2em 2em 2em 2em;
+}
+
+.odd-comment {
+  background-color: lightcyan;
+  padding: 2em 2em 2em 2em;
+}
+
+/*
+******************************************
+Calculator
+******************************************
+*/
+
+
+.calc-col {
+  border: solid 1px black;
+  height: 100px;
+  text-align: center;
+  padding-top: 1em;
+  font-size: 1.5em;
+}
+
+
+.calc-container {
+  width: 10em;
+}
+
+.fill-button {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  border: transparent;
+  font-size: 1.3em;
+}
+
+.fill-button:hover {
+  background-color: transparent;
+  color: black;
+  border: transparent;
+  opacity: 0.8;
+}
+
+.main-container {
+  width: 400px;
+}
+
+.number {
+  background-color: salmon;
+  opacity: 0.7;
+}
+
+.operator {
+  background-color: lightgreen;
+  opacity: 0.8;
+}
+
+#result-row {
+  text-align: right;
+  background-color: darkgray;
+  color: white;
+  font-size: 2em;
+  padding-bottom: 2em;
+  padding-top: 0.8em;
+}
