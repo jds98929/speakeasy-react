@@ -9,7 +9,7 @@ import { UsernameComponent } from './components/username/username.component';
 
 class App extends React.Component {
 
-  public socket = io.connect('http://ec2-3-16-31-253.us-east-2.compute.amazonaws.com:4000');
+  public socket = io.connect('http://ec2-3-16-31-253.us-east-2.compute.amazonaws.com:3001');
 
   public render() {
     return (
