@@ -7,6 +7,8 @@ phases:
         commands:
             - echo Installing source NPM dependencies...
             - cd chat-react && npm install
+        runtime-versions:
+            nodejs: 8
     build:
         commands:
             - echo Build started on `date`
