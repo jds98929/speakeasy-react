@@ -13,15 +13,15 @@ phases:
         commands:
             - echo Build started on `date`
             - npm run build
-    post_build:
-        commands:
-            - echo "$CODEBUILD_BUILD_SUCCEEDING"
-            # if build succeeds copy the dist folder into the s3 bucket
-            - |
-                if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ]; then
-                    aws s3 cp "chat-react/build" "s3://${S3_BUCKET}" "--recursive";
-                    echo "Build completed on date";
-                fi
+    # post_build:
+    #     commands:
+    #         - echo "$CODEBUILD_BUILD_SUCCEEDING"
+    #         # if build succeeds copy the dist folder into the s3 bucket
+    #         - |
+    #             if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ]; then
+    #                 aws s3 cp "chat-react/build" "s3://${S3_BUCKET}" "--recursive";
+    #                 echo "Build completed on date";
+    #             fi
 artifacts:
     files:
         - '**/*'
