@@ -27,22 +27,28 @@ export class HomeComponent extends React.Component<IProps, any> {
     }
 
     public componentDidMount() {
+        this.props.socket.on('user verification', (data: boolean) => {
+            if (!data) {
+                alert('Please enter a username and select a role');
+                 this.props.history.push('/username');
+            }
+        });
+        this.props.socket.emit('verify user');
         this.props.socket.on('chat', (data: any) => {
             let currChecked: boolean = true;
             if (this.autoscrollRef.current) {
                 currChecked = this.autoscrollRef.current.checked;
             }
-            this.setState({
-                display: this.state.display + "<br/><br/><strong>" + data.handle + "</strong><span style=\"color: red; font-size: 0.8em\"> " + data.timestamp + "</span>:<br/> " + data.message, 
-            });
+            data.role === 'listen' ?
+                this.setState({
+                    display: this.state.display + "<br/><br/><strong>" + data.handle + "</strong><span style=\"color: red; font-size: 0.8em\"> " + data.timestamp + "</span>:<br/> " + data.message, 
+                }) :
+                this.setState({
+                    speakerDisplay: this.state.speakerDisplay + "<br/><br/><strong>" + data.handle + "</strong><span style=\"color: red; font-size: 0.8em\"> " + data.timestamp + "</span>:<br/> " + data.message, 
+                });
             if (this.autoscrollRef.current) {
                 this.autoscrollRef.current.checked = currChecked;
             }
-        });
-        this.props.socket.on('speaker chat', (data: any) => {
-            this.setState({
-                speakerDisplay: this.state.speakerDisplay + "<br/><br/><strong>" + data.handle + "</strong><span style=\"color: red; font-size: 0.8em\"> " + data.timestamp + "</span>:<br/> " + data.message, 
-            });
         });
         const messages= this.chatRef.current;
         const autoscroll = this.autoscrollRef.current;
@@ -90,18 +96,11 @@ export class HomeComponent extends React.Component<IProps, any> {
         event.preventDefault();
         let chatMessage:string;
         this.state.bold ? chatMessage = `<strong>${this.state.chatInput}</strong>` : chatMessage = this.state.chatInput;
-        this.state.italic ? chatMessage = `<i>${chatMessage}</i>` : chatMessage = chatMessage;
-        localStorage.getItem('role') === 'listen' ? 
-            this.props.socket.emit('chat', {
-                handle: localStorage.getItem('username'),
-                message: chatMessage,
-                timestamp: new Date().toLocaleTimeString()
-            }) :      
-            this.props.socket.emit('speaker chat', {
-                handle: localStorage.getItem('username'),
-                message: chatMessage,
-                timestamp: new Date().toLocaleTimeString()
-            })
+        this.state.italic ? chatMessage = `<i>${chatMessage}</i>` : chatMessage = chatMessage; 
+        this.props.socket.emit('chat', {
+            message: chatMessage,
+            timestamp: new Date().toLocaleTimeString()
+        });
     }
 
     public render() {
@@ -109,11 +108,17 @@ export class HomeComponent extends React.Component<IProps, any> {
         return (
             <div>
             <div id="speaker-container">
-                <div ref={this.speakerRef} dangerouslySetInnerHTML={{__html: speakerDisplay}}></div>
+                <div className="text-center chat-heading-container">
+                    <h3 className="header">Speakerboxxx</h3>
+                </div>
+                <div ref={this.speakerRef} className="display" id="speaker-display" dangerouslySetInnerHTML={{__html: speakerDisplay}}></div>
             </div>
             <br/>
             <div id="chat-container">
-                <div ref={this.chatRef} id="display" dangerouslySetInnerHTML={{__html: display}}></div>
+                <div className="text-center chat-heading-container">
+                    <h3 className="header">The Love Below</h3>
+                </div>
+                <div ref={this.chatRef} className="display" dangerouslySetInnerHTML={{__html: display}}></div>
                 <br/>
                 <form>
                     <div className="form-group row">

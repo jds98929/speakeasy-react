@@ -31,8 +31,6 @@ export class UsernameComponent extends React.Component<IProps, any> {
         })
         this.props.socket.on('handle', (data: any) => {
             if (data.reply === 'success') {
-                localStorage.setItem('username', this.state.username);
-                localStorage.setItem('role', this.state.selectedOption);
                 this.props.history.push('/home');
             } else if (data.reply === 'taken') {
                 alert('This username is already taken, try another one.');
@@ -45,7 +43,7 @@ export class UsernameComponent extends React.Component<IProps, any> {
                 })
                 setInterval(() => {
                     this.props.socket.emit('check count');
-                    if (this.playerCount === 2) {
+                    if (this.playerCount >= 2) {
                         this.props.history.push('/home');
                     } 
                 }, 1000);
@@ -67,21 +65,17 @@ export class UsernameComponent extends React.Component<IProps, any> {
     public render() {
         return(
             <div>
-                <div className="row">Expression Nook</div>
+                <h1 id="username-header">Expression Nook</h1>
                 <form>
-                    <label className="form-group row" htmlFor="username">Enter a username: </label>
-                    <input onChange={(event: any) => this.setState({username: event.target.value})} className="form-group row" id="username" value={this.state.username}/>
-                    <button type="submit" className="form-group row btn btn-primary" onClick={this.handleSubmit}>submit</button>
-                    <table>
-                        <tr>
-                            <input id ="speak" type="radio" checked={this.state.selectedOption==='speak'} value="speak" onChange={this.handleRadio} disabled={this.state.speaker ? true : false}/>
-                            <label htmlFor="speak"> Speak </label>
-                        </tr>
-                        <tr>
-                            <input id="listen" type="radio" checked={this.state.selectedOption==='listen'} value="listen" onChange={this.handleRadio}/>
-                            <label htmlFor="listen"> Listen </label>
-                        </tr>
-                    </table>
+                    <label className="row justify-content-center" htmlFor="username">Enter a username: </label>
+                    <input onChange={(event: any) => this.setState({username: event.target.value})} className="form-control row" id="username" value={this.state.username}/>
+                    <button type="submit" className="form-control row btn btn-primary" onClick={this.handleSubmit}>Join In</button>
+                    <div id="role-container" className="row form-group">
+                        <input className="col" id ="speak" type="radio" checked={this.state.selectedOption==='speak'} value="speak" onChange={this.handleRadio} disabled={this.state.speaker ? true : false}/>
+                        <label htmlFor="speak"> Speak </label>
+                        <input className="col" id="listen" type="radio" checked={this.state.selectedOption==='listen'} value="listen" onChange={this.handleRadio}/>
+                        <label htmlFor="listen"> Listen </label>                      
+                    </div>
                 </form>
                 <span className="row">{this.state.waitMessage}</span>
             </div>
