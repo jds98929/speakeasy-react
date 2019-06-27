@@ -109,14 +109,14 @@ export class HomeComponent extends React.Component<IProps, any> {
             <div>
             <div id="speaker-container">
                 <div className="text-center chat-heading-container">
-                    <h3 className="header">Speakerboxxx</h3>
+                    <h3 className="header">Speak</h3>
                 </div>
                 <div ref={this.speakerRef} className="display" id="speaker-display" dangerouslySetInnerHTML={{__html: speakerDisplay}}></div>
             </div>
             <br/>
             <div id="chat-container">
                 <div className="text-center chat-heading-container">
-                    <h3 className="header">The Love Below</h3>
+                    <h3 className="header">Listen</h3>
                 </div>
                 <div ref={this.chatRef} className="display" dangerouslySetInnerHTML={{__html: display}}></div>
                 <br/>
